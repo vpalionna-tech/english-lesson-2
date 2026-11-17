@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Big Lesson 2: More Rules for «the»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#F1F7F6; --surface:#FFFFFF; --ink:#16323A; --line:#16323A; --soft:#CFE3E0; --muted:#4D6A70;
+  --acc:#0E7C7B; --onacc:#FFFFFF; --sun:#FFC145; --coral:#C94420; --good:#D5F0E1; --bad:#FFDCD2; --focus:#0A5CFF;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#0E1D20; --surface:#162B2F; --ink:#EAF6F4; --line:#6FB0AB; --soft:#2A4A4C; --muted:#A9CBC8; --acc:#4FD1C5; --onacc:#06201F; --good:#1E5A44; --bad:#6B2A25; --focus:#9CC1FF; }
+}
+:root[data-theme="dark"]{ --bg:#0E1D20; --surface:#162B2F; --ink:#EAF6F4; --line:#6FB0AB; --soft:#2A4A4C; --muted:#A9CBC8; --acc:#4FD1C5; --onacc:#06201F; --good:#1E5A44; --bad:#6B2A25; --focus:#9CC1FF; }
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Outfit','Segoe UI',system-ui,-apple-system,Roboto,sans-serif;font-size:18px;line-height:1.45}
+button,input,select{font-family:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.ipa{font-family:'Noto Sans','Segoe UI','DejaVu Sans',system-ui,sans-serif}
+
+.head{background:var(--acc);color:var(--onacc);padding:16px 14px 14px;border-bottom:3px solid var(--line)}
+.head-in{max-width:900px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.head h1{margin:0;font-size:clamp(26px,5.5vw,40px);font-weight:800;line-height:1.05}
+.head p{margin:4px 0 0;font-size:16px;opacity:.95}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{background:var(--sun);color:#16323A;border:2px solid #16323A;border-radius:10px;padding:2px 12px;font-weight:800;font-size:17px;white-space:nowrap}
+.wrap{max-width:900px;margin:0 auto;padding:14px 14px 40px}
+.tabs{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;margin:0 0 14px;border-bottom:3px solid var(--line)}
+.tab{cursor:pointer;background:none;border:0;border-bottom:6px solid transparent;margin-bottom:-3px;padding:6px 2px 4px;font-weight:700;font-size:13px;display:flex;flex-direction:column;align-items:center;line-height:1.1;color:var(--muted)}
+.tab .ic{font-size:22px}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--coral)}
+
+.card{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:18px 14px}
+h2{font-size:25px;margin:0 0 4px;font-weight:800}
+h3{font-size:17px;margin:16px 0 6px}
+.hint{color:var(--muted);font-size:15px;margin:0}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.between{justify-content:space-between}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.chip{cursor:pointer;font-weight:600;font-size:15px;border:2px solid var(--line);border-radius:999px;padding:2px 13px;background:var(--surface);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.btn{cursor:pointer;font-weight:700;font-size:17px;border:2px solid var(--line);border-radius:10px;padding:8px 18px;background:var(--surface);color:var(--ink)}
+.btn.main{background:var(--acc);color:var(--onacc);border-color:var(--acc)}
+.btn.sun{background:var(--sun);color:#16323A;border-color:#16323A}
+.btn.red{background:var(--coral);color:#fff;border-color:var(--coral)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn:active{transform:translateY(2px)}
+.bar{height:10px;border:2px solid var(--line);border-radius:999px;background:var(--surface);overflow:hidden;margin:0 0 12px}
+.bar>i{display:block;height:100%;background:var(--acc)}
+
+.plan{display:grid;gap:10px;margin:12px 0}
+.ps{display:flex;gap:12px;align-items:center;border:2px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface)}
+.ps .m{font-size:24px;font-weight:800;min-width:62px;text-align:center;line-height:1.05}
+.ps .m small{display:block;font-size:12px;font-weight:600;color:var(--muted)}
+.ps .t{flex:1}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:8px 0 12px}
+.kpi div{border:2px solid var(--line);border-radius:12px;padding:8px;text-align:center;background:var(--surface)}
+.kpi .big{font-size:34px;font-weight:800;line-height:1}
+.kpi small{display:block;color:var(--muted);font-size:13px;font-weight:600}
+.rule{margin:10px 0;padding:8px 12px;border-left:6px solid var(--acc);background:var(--bg);border-radius:6px;font-size:16px}
+
+.wcard{text-align:center;padding:14px 8px}
+.wem{font-size:64px;line-height:1.1}
+.wen{font-size:clamp(32px,7vw,46px);font-weight:800;margin:6px 0 2px}
+.wipa{font-size:23px;margin:0 0 10px}
+.wrev{min-height:56px;margin:10px 0 12px}
+.wuk{font-size:23px;font-weight:700;margin:0}
+
+.q{font-size:clamp(22px,4.6vw,28px);font-weight:700;line-height:1.3;margin:6px 0 14px}
+.blank{display:inline-block;min-width:80px;border-bottom:4px solid var(--coral);text-align:center;padding:0 6px}
+.blank.f{border-color:var(--line);background:var(--sun);color:#16323A;border-radius:6px}
+.opts{display:grid;gap:10px}
+.opt{cursor:pointer;text-align:left;font-weight:700;font-size:19px;border:2px solid var(--line);border-radius:10px;padding:11px 14px;background:var(--surface);color:var(--ink)}
+.opt.good{background:var(--good)} .opt.bad{background:var(--bad)} .opt[disabled]{cursor:default}
+.big-ipa{font-size:clamp(30px,8vw,46px);font-weight:600;margin:8px 0 14px}
+.fb{margin:12px 0 0;padding:10px 14px;border:2px solid var(--line);border-radius:10px;background:var(--good)}
+.fb.no{background:var(--bad)} .fb b{display:block}
+.miss{border:2px solid var(--soft);border-radius:10px;padding:8px 12px;margin:0 0 10px}
+.miss p{margin:0}
+.res{display:grid;gap:6px;margin:8px 0}
+.res div{display:flex;justify-content:space-between;border-bottom:1px solid var(--soft);padding:4px 0}
+
+.uk{font-size:22px;font-weight:700;margin:6px 0 12px}
+.tray{min-height:60px;border:2px dashed var(--line);border-radius:12px;padding:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.tray.ok{border-style:solid;background:var(--good)} .tray.no{border-style:solid;background:var(--bad)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:46px}
+.tok{cursor:pointer;font-weight:700;font-size:19px;border:2px solid var(--line);border-radius:8px;padding:5px 12px;background:var(--sun);color:#16323A}
+.tray .tok{background:var(--surface);color:var(--ink)}
+.inp{width:100%;font-size:22px;font-weight:600;border:3px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--surface);color:var(--ink);margin:6px 0 10px}
+.inp.ok{background:var(--good)} .inp.no{background:var(--bad)}
+.tt{width:100%;border-collapse:collapse;margin:10px 0}.tt th,.tt td{border:2px solid var(--line);padding:6px 10px;text-align:left}.tt th{background:var(--soft)}
+.tag{display:inline-block;border:2px solid var(--line);border-radius:999px;padding:0 10px;font-size:13px;font-weight:700;margin-bottom:6px}
+
+.sit{font-size:20px;font-weight:700;margin:4px 0 2px}
+.say{margin:0;padding-left:22px}
+.say li{margin:3px 0}
+.phr{display:flex;flex-wrap:wrap;gap:8px}
+.phr span{border:2px solid var(--line);border-radius:8px;padding:2px 10px;background:var(--good);font-weight:600;font-size:16px}
+.gram{display:inline-block;margin:0;padding:2px 12px;border-radius:999px;border:2px solid var(--line);font-weight:700;font-size:15px;background:var(--sun);color:#16323A}
+.timer{font-size:36px;font-weight:800;min-width:96px;font-variant-numeric:tabular-nums}
+.tutor{margin-top:12px;padding:10px 14px;border:2px dashed var(--line);border-radius:12px}
+.tutor ul{margin:4px 0 0;padding-left:22px}
+
+@media (max-width:640px){
+  body{font-size:17px}
+  .tabs{grid-template-columns:repeat(3,1fr)}
+  .tab{font-size:12px}
+}
+@media (prefers-reduced-motion: reduce){ .btn:active{transform:none} }
+</style>
+</head>
+<body>
+<header class="head"><div class="head-in">
+  <div><h1>Big Lesson 2</h1><p>Check, 10 new words and more rules for «the»</p></div>
+  <div class="pills"><div class="pill" id="pMast">Mastered 0</div><div class="pill" id="pScore">✓ 0</div></div>
+</div></header>
+<div class="wrap">
+  <div class="tabs" role="tablist" id="tabs" aria-label="Activities"></div>
+  <main id="view" aria-live="polite"></main>
+</div>
+
+<script>
+var $=function(s){ return document.querySelector(s); };
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function rnd(a,b){ return a+Math.floor(Math.random()*(b-a+1)); }
+var canSpeak=('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window);
+function say(t){ try{ if(!canSpeak) return; window.speechSynthesis.cancel(); var u=new SpeechSynthesisUtterance(t); u.lang='en-US'; u.rate=0.85; window.speechSynthesis.speak(u);}catch(e){} }
+var total=0; function addScore(){ total++; $('#pScore').textContent='✓ '+total; }
+var tmo=[]; function clearTmo(){ tmo.forEach(clearTimeout); tmo=[]; }
+var timerId=null; function stopTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } }
+function fmt(n){ var m=Math.floor(n/60), s=n%60; return m+':'+(s<10?'0':'')+s; }
+function chips(modes,cur,attr){ return '<div class="chips" role="group" aria-label="Choose">'+modes.map(function(m){ return '<button class="chip" '+attr+'="'+m[0]+'" aria-pressed="'+(String(cur)===String(m[0]))+'">'+m[1]+'</button>'; }).join('')+'</div>'; }
+function bindAttr(attr,fn){ var cs=document.querySelectorAll('['+attr+']'); for(var i=0;i<cs.length;i++) cs[i].onclick=function(){ fn(this.getAttribute(attr)); }; }
+
+/* ============ progress: how many times each sentence was translated correctly ============ */
+var P={}, KEY='biglesson3.v1';
+try{ var sv=window.localStorage.getItem(KEY); if(sv) P=JSON.parse(sv)||{}; }catch(e){ P={}; }
+function saveP(){ try{ window.localStorage.setItem(KEY,JSON.stringify(P)); }catch(e){} }
+
+/* ============ DATA: sentences  uk | en | tag ============ */
+var SRAW=`Це кухня.|It is a kitchen.|prev
+Це кімната.|It is a room.|prev
+Це стіл.|It is a table.|prev
+Це двері.|It is a door.|prev
+Це вікно.|It is a window.|prev
+Я бачу сонце.|I see the sun.|prev
+Я бачу місяць.|I see the moon.|prev
+Я відкриваю двері.|I open the door.|prev
+Я закриваю вікно.|I close the window.|prev
+Ти бачиш сонце?|Do you see the sun?|prev
+Ти закриваєш вікно?|Do you close the window?|prev
+Він не відкриває двері.|He doesn't open the door.|prev
+Вона не закриває вікно.|She doesn't close the window.|prev
+Собака в кухні.|The dog is in the kitchen.|prev
+Собака в кімнаті?|Is the dog in the room?|prev
+Я в кухні.|I am in the kitchen.|prev
+Яблуко в кухні.|The apple is in the kitchen.|prev
+Я бачу собаку. Собака щасливий.|I see a dog. The dog is happy.|prev
+Це стіл. Стіл у кухні.|It is a table. The table is in the kitchen.|prev
+Я не бачу місяць.|I don't see the moon.|prev
+Це будинок.|It is a house.|new
+Це сад.|It is a garden.|new
+Це дерево.|It is a tree.|new
+Це вулиця.|It is a street.|new
+Це магазин.|It is a shop.|new
+Це ліжко.|It is a bed.|new
+Я бачу будинок.|I see a house.|new
+Я бачу дерево.|I see a tree.|new
+Я бачу магазин.|I see a shop.|new
+Це не будинок.|It is not a house.|new
+Це сад?|Is it a garden?|new
+Я мию вікно.|I wash a window.|new
+Я прибираю кімнату.|I clean a room.|new
+Я знаходжу собаку.|I find a dog.|new
+Ти бачиш дерево?|Do you see a tree?|new
+Я не бачу будинок.|I don't see a house.|new
+Він не миє вікно.|He doesn't wash a window.|new
+Вона не прибирає кімнату.|She doesn't clean a room.|new
+Я бачу небо.|I see the sky.|the
+Я люблю небо.|I like the sky.|the
+Ти бачиш небо?|Do you see the sky?|the
+Я не бачу небо.|I don't see the sky.|the
+Я мию вікно.|I wash the window.|the
+Я прибираю кухню.|I clean the kitchen.|the
+Я прибираю кімнату.|I clean the room.|the
+Ти миєш вікно?|Do you wash the window?|the
+Ти прибираєш кухню?|Do you clean the kitchen?|the
+Вона не прибирає кімнату.|She doesn't clean the room.|the
+Він не миє вікно.|He doesn't wash the window.|the
+Я знаходжу собаку.|I find the dog.|the
+Ти знаходиш собаку?|Do you find the dog?|the
+Я не знаходжу собаку.|I don't find the dog.|the
+Собака в саду.|The dog is in the garden.|the
+Собака в саду?|Is the dog in the garden?|the
+Дерево в саду.|The tree is in the garden.|the
+Магазин на вулиці.|The shop is in the street.|the
+Ліжко в кімнаті.|The bed is in the room.|the
+Я в саду.|I am in the garden.|the
+Ми в саду.|We are in the garden.|the
+Вони на вулиці.|They are in the street.|the
+Я гуляю в саду.|I walk in the garden.|the
+Я гуляю на вулиці.|I walk in the street.|the
+Вони п'ють чай у саду.|They drink tea in the garden.|the
+Я бачу собаку в саду.|I see the dog in the garden.|rule
+Я бачу дерево в саду.|I see the tree in the garden.|rule
+Я знаходжу собаку в саду.|I find the dog in the garden.|rule
+Я люблю собак.|I like dogs.|rule
+Я люблю собаку в саду.|I like the dog in the garden.|rule
+Я п'ю чай.|I drink tea.|rule
+Чай у кухні.|The tea is in the kitchen.|rule
+Це будинок. Будинок на вулиці.|It is a house. The house is in the street.|rule
+Це магазин. Магазин на вулиці.|It is a shop. The shop is in the street.|rule
+Це дерево. Дерево в саду.|It is a tree. The tree is in the garden.|rule
+Анна в кухні.|Anna is in the kitchen.|rule
+Анна не в саду.|Anna is not in the garden.|rule
+У липні я в саду.|In July I am in the garden.|rule
+Влітку я бачу сонце в небі.|In summer I see the sun in the sky.|rule
+Я бачу місяць у небі.|I see the moon in the sky.|rule
+Я люблю сади.|I like gardens.|mix
+Він любить дерева.|He likes trees.|mix
+Вона не любить магазини.|She doesn't like shops.|mix
+Ти любиш сади?|Do you like gardens?|mix
+Він любить собак.|He likes dogs.|mix
+Я втомлений. Я сплю.|I am tired. I sleep.|mix
+Я голодний. Я в кухні.|I am hungry. I am in the kitchen.|mix
+Вона сонна. Вона в кімнаті.|She is sleepy. She is in the room.|mix
+Ми не втомлені. Ми в саду.|We are not tired. We are in the garden.|mix
+Я п'ю воду в саду.|I drink water in the garden.|mix
+Це яблуко. Яблуко в саду.|It is an apple. The apple is in the garden.|mix
+Я читаю книгу в кімнаті.|I read a book in the room.|mix
+Ми дивимося фільм. Ми любимо фільм.|We watch a movie. We like the movie.|mix`;
+var S=SRAW.trim().split('\n').map(function(l){ var p=l.split('|'); return {uk:p[0],en:p[1],tag:p[2]}; });
+var TAGS=[['all','All'],['prev','Last lesson'],['new','New words'],['the','with the'],['rule','The rules'],['mix','Mixed']];
+function mastered(){ return S.filter(function(s){ return (P[s.en]||0)>=2; }).length; }
+function upM(){ $('#pMast').textContent='Mastered '+mastered()+' / '+S.length; }
+function chooseSet(tag,n){
+  var pool=S.filter(function(s){ return tag==='all'||s.tag===tag; });
+  var arr=shuffle(pool).sort(function(a,b){ return (P[a.en]||0)-(P[b.en]||0); }).slice(0,Math.min(n,pool.length));
+  return shuffle(arr);
+}
+function credit(s,first){ if(first){ P[s.en]=(P[s.en]||0)+1; saveP(); upM(); } }
+
+/* ============ DATA: words  cat | emoji | word | ipa | uk ============ */
+var WRAW=`New|🏠|house|/haʊs/|будинок
+New|🏡|garden|/ˈɡɑːdn/|сад, двір
+New|🌳|tree|/triː/|дерево
+New|🌤️|sky|/skaɪ/|небо
+New|🛣️|street|/striːt/|вулиця
+New|🏪|shop|/ʃɒp/|магазин
+New|🛏️|bed|/bed/|ліжко
+New|🧹|clean|/kliːn/|прибирати
+New|🧼|wash|/wɒʃ/|мити
+New|🔍|find|/faɪnd/|знаходити
+Last lesson|🍳|kitchen|/ˈkɪtʃɪn/|кухня
+Last lesson|🛋️|room|/ruːm/|кімната
+Last lesson|🍽️|table|/ˈteɪbl/|стіл
+Last lesson|🚪|door|/dɔː/|двері
+Last lesson|🪟|window|/ˈwɪndəʊ/|вікно
+Last lesson|☀️|sun|/sʌn/|сонце
+Last lesson|🌙|moon|/muːn/|місяць
+Last lesson|🔓|open|/ˈəʊpən/|відкривати
+Last lesson|🔒|close|/kləʊz/|закривати
+Last lesson|👁️|see|/siː/|бачити
+Fruits|🍎|apple|/ˈæpl/|яблуко
+Fruits|🍌|banana|/bəˈnɑːnə/|банан
+Fruits|🍊|orange|/ˈɒrɪndʒ/|апельсин
+Fruits|🍐|pear|/peə/|груша
+Fruits|🍑|peach|/piːtʃ/|персик
+Fruits|🍒|cherry|/ˈtʃeri/|вишня, черешня
+Fruits|🍍|pineapple|/ˈpaɪnæpl/|ананас
+Fruits|🍉|watermelon|/ˈwɔːtəmelən/|кавун
+Vegetables|🍅|tomato|/təˈmɑːtəʊ/|помідор
+Vegetables|🥔|potato|/pəˈteɪtəʊ/|картопля
+Vegetables|🥕|carrot|/ˈkærət/|морква
+Vegetables|🥒|cucumber|/ˈkjuːkʌmbə/|огірок
+Vegetables|🧄|garlic|/ˈɡɑːlɪk/|часник
+Vegetables|🧅|onion|/ˈʌnjən/|цибуля
+Vegetables|🥬|cabbage|/ˈkæbɪdʒ/|капуста
+Vegetables|🫑|pepper|/ˈpepə/|перець
+Feelings|😊|happy|/ˈhæpi/|щасливий
+Feelings|😢|sad|/sæd/|сумний
+Feelings|😫|tired|/ˈtaɪəd/|втомлений
+Feelings|😴|sleepy|/ˈsliːpi/|сонний
+Feelings|😌|calm|/kɑːm/|спокійний
+Feelings|🍽️|hungry|/ˈhʌŋɡri/|голодний
+Feelings|😠|angry|/ˈæŋɡri/|сердитий
+Feelings|🥤|thirsty|/ˈθɜːsti/|спраглий
+Feelings|😮|surprised|/səˈpraɪzd/|здивований
+Seasons|🌸|spring|/sprɪŋ/|весна
+Seasons|☀️|summer|/ˈsʌmər/|літо
+Seasons|🍂|autumn|/ˈɔːtəm/|осінь
+Seasons|❄️|winter|/ˈwɪntər/|зима
+Months|📅|January|/ˈdʒænjuˌeri/|січень
+Months|📅|February|/ˈfebruˌeri/|лютий
+Months|📅|March|/mɑːrtʃ/|березень
+Months|📅|April|/ˈeɪprəl/|квітень
+Months|📅|May|/meɪ/|травень
+Months|📅|June|/dʒuːn/|червень
+Months|📅|July|/dʒuˈlaɪ/|липень
+Months|📅|August|/ˈɔːɡəst/|серпень
+Months|📅|September|/sepˈtembər/|вересень
+Months|📅|October|/ɑːkˈtoʊbər/|жовтень
+Months|📅|November|/noʊˈvembər/|листопад
+Months|📅|December|/dɪˈsembər/|грудень
+Verbs|🍴|eat|/iːt/|їсти
+Verbs|🥤|drink|/drɪŋk/|пити
+Verbs|📖|read|/riːd/|читати
+Verbs|👀|watch|/wɒtʃ/|дивитися
+Verbs|🍳|cook|/kʊk/|готувати
+Verbs|😴|sleep|/sliːp/|спати
+Verbs|🚶|walk|/wɔːk/|гуляти, ходити
+Things|💧|water|/ˈwɔːtə/|вода
+Things|🍵|tea|/tiː/|чай
+Things|☕|coffee|/ˈkɒfi/|кава
+Things|🍞|bread|/bred/|хліб
+Things|📕|book|/bʊk/|книга
+Things|🎬|movie|/ˈmuːvi/|фільм
+Things|🎵|music|/ˈmjuːzɪk/|музика
+Things|🐶|dog|/dɒɡ/|собака`;
+var WORDS=WRAW.trim().split('\n').map(function(l){ var p=l.split('|'); return {c:p[0],e:p[1],en:p[2],ipa:p[3],uk:p[4]}; });
+
+/* ============ DATA: grammar questions  prompt | correct | wrong | wrong | why ============ */
+function pq(txt){ return txt.trim().split('\n').map(function(l){ var p=l.split('|'); return [p[0],[p[1],p[2],p[3]],p[4]]; }); }
+var G={
+ the:{label:'a / an / the',items:pq(`I see a dog. ___ dog is in the garden.|The|A|no article|Той самий собака вдруге → the.
+It is a house. ___ house is in the street.|The|A|no article|Той самий будинок вдруге → the.
+It is a tree. I see ___ tree.|the|a|no article|Ми вже знаємо, яке дерево → the.
+I see ___ sky.|the|a|no article|Небо одне → the sky.
+I see the sun in ___ sky.|the|a|no article|Небо одне → the sky.
+It is a shop. ___ shop is in the street.|The|A|no article|Той самий магазин вдруге → the.
+It is ___ garden.|a|the|no article|Перший раз, один предмет → a garden.
+It is ___ bed.|a|the|no article|Перший раз → a bed.
+It is ___ tree.|a|the|no article|Перший раз → a tree.
+It is ___ orange.|an|the|no article|Перший раз, голосний звук → an.
+I like ___ trees.|no article|a|an|Дерева загалом (множина) → без артикля.
+I like ___ gardens.|no article|a|an|Сади загалом (множина) → без артикля.
+I drink ___ tea.|no article|a|an|Tea — загальне слово.
+I eat ___ bread.|no article|a|an|Bread — загальне слово.
+It is a dog. I see ___ dog in the garden.|the|a|no article|Ми знаємо, який собака, і уточнюємо де → the.
+Which sentence is correct?|I see the sky.|I see a sky.|I see sky.|Небо одне, тому the sky.
+Which sentence is correct?|The tree is in the garden.|Tree is in garden.|The tree in the garden.|Потрібні the, is і in the.
+Which sentence is correct?|I find the dog in the garden.|I find dog in garden.|I am find the dog in the garden.|Знаємо, який собака → the; дія без to be.
+Which sentence is correct?|Anna is in the kitchen.|The Anna is in the kitchen.|Anna in the kitchen.|З іменами the не ставимо.`)},
+ rules:{label:'more rules for «the»',items:pq(`Which sentence means «Я люблю собак взагалі»?|I like dogs.|I like the dog.|I am like dogs.|Взагалі (множина) → без the.
+Which sentence means «Я люблю ту собаку в саду»?|I like the dog in the garden.|I like dogs in garden.|I like a dog in the garden.|Конкретна собака (уточнюємо де) → the.
+I see a tree. ___ tree is in the garden.|The|A|no article|Друга згадка → the.
+Which sentence is correct?|Anna is in the garden.|The Anna is in the garden.|Anna is the garden.|З іменами the не ставимо.
+Which sentence is correct?|In July I am in the garden.|In the July I am in the garden.|In July I am in garden.|Місяці без the.
+Which sentence is correct?|I see the moon in the sky.|I see the moon in sky.|I see moon in the sky.|Місяць і небо єдині → the moon, the sky.
+Which sentence is correct?|I drink tea in the garden.|I drink a tea in the garden.|I drink tea in garden.|Tea — загальне, без the; in the garden.
+It is a window. I wash ___ window.|the|a|no article|Знаємо, яке вікно → the.
+Choose the translation: «Я бачу дерево в саду.»|I see a tree in the garden.|I see a tree in garden.|I am see a tree in the garden.|Перший раз → a tree; сад, який ми знаємо → the garden.
+Choose the translation: «Собака в саду.»|The dog is in the garden.|Dog is in garden.|The dog in the garden.|Потрібні the, is, in the.
+I like ___ sky.|the|a|no article|Небо одне → the sky.
+Which sentence is correct?|It is a shop. The shop is in the street.|It is a shop. A shop is in the street.|It is shop. The shop is in the street.|Спочатку a, потім the.`)},
+ pron:{label:'how to say «the»',items:pq(`How do we say "the house"?|/ðə haʊs/|/ði haʊs/|/də haʊs/|House починається зі звука /h/ (приголосний) → /ðə/.
+How do we say "the apple"?|/ði ˈæpl/|/ðə ˈæpl/|/də ˈæpl/|Перед голосним звуком the → /ði/.
+How do we say "the orange"?|/ði ˈɒrɪndʒ/|/ðə ˈɒrɪndʒ/|/də ˈɒrɪndʒ/|Orange починається з голосного → /ði/.
+How do we say "the sky"?|/ðə skaɪ/|/ði skaɪ/|/də skaɪ/|Sky починається з /s/ → /ðə/.
+How do we say "the onion"?|/ði ˈʌnjən/|/ðə ˈʌnjən/|/də ˈʌnjən/|Onion починається з голосного → /ði/.
+How do we say "the garden"?|/ðə ˈɡɑːdn/|/ði ˈɡɑːdn/|/də ˈɡɑːdn/|Garden починається з /ɡ/ → /ðə/.
+How do we say "the tree"?|/ðə triː/|/ði triː/|/də triː/|Tree починається з /t/ → /ðə/.`)},
+ newv:{label:'new words in sentences',items:pq(`I ___ the window.|wash|washes|am wash|З I: I wash.
+I ___ the kitchen.|clean|cleans|am clean|З I: I clean.
+I ___ the dog.|find|finds|am find|З I: I find.
+Do you ___ the room?|clean|cleans|are clean|Після Do дієслово без -s.
+I don't ___ the window.|wash|washes|washing|Після don't — wash.
+He doesn't ___ the kitchen.|clean|cleans|cleaning|Після doesn't дієслово без -s.
+She doesn't ___ the dog.|find|finds|finding|Після doesn't — find.
+The dog is in the ___.|garden|wash|clean|Після in the потрібен іменник: garden.
+The shop is in the ___.|street|find|see|Після in the потрібен іменник: street.
+It is a ___.|house|clean|find|Після a потрібен іменник: house.
+I see the ___.|sky|wash|clean|Після the іменник: sky.
+Choose the translation: «Я мию вікно.»|I wash the window.|I am wash the window.|I washes the window.|I wash + the window.
+Choose the translation: «Я прибираю кухню.»|I clean the kitchen.|I am clean the kitchen.|I cleans the kitchen.|I clean + the kitchen.
+Choose the translation: «Ти знаходиш собаку?»|Do you find the dog?|Are you find the dog?|You find do the dog?|Do you find...?
+Choose the translation: «Він не миє вікно.»|He doesn't wash the window.|He don't wash the window.|He doesn't washes the window.|He + doesn't + wash.
+Choose the translation: «Я бачу небо.»|I see the sky.|I see a sky.|I am see the sky.|Небо одне → the sky.`)},
+ prev:{label:'last lesson',items:pq(`I see a dog. ___ dog is happy.|The|A|no article|Той самий собака вдруге → the.
+It is a window. I open ___ window.|the|a|no article|Знаємо, яке саме вікно → the.
+It is a door. I close ___ door.|the|a|no article|Знаємо, які саме двері → the.
+I see ___ sun.|the|a|no article|Сонце одне → the sun.
+I see ___ moon.|the|a|no article|Місяць один → the moon.
+It is a table. ___ table is in the kitchen.|The|A|no article|Той самий стіл вдруге → the.
+It is a room. I am in ___ room.|the|a|no article|Та сама кімната → the room.
+It is ___ table.|a|the|no article|Перший раз → a table.
+I like ___ dogs.|no article|a|an|Собаки загалом → без артикля.
+I drink ___ water.|no article|a|an|Water без артикля.
+I ___ the door.|open|opens|am open|З I: I open.
+I ___ the window.|close|closes|am close|З I: I close.
+Do you ___ the sun?|see|sees|are see|Після Do дієслово без -s.
+I don't ___ the moon.|see|sees|seeing|Після don't — see.
+He doesn't ___ the door.|open|opens|opening|Після doesn't дієслово без -s.
+The dog is in the ___.|kitchen|open|see|Після in the потрібен іменник.
+Choose the translation: «Я бачу сонце.»|I see the sun.|I see a sun.|I am see the sun.|Сонце одне → the sun.
+Choose the translation: «Собака в кухні.»|The dog is in the kitchen.|Dog is in kitchen.|The dog in the kitchen.|Потрібні the, is і in the.
+How do we say "the apple"?|/ði ˈæpl/|/ðə ˈæpl/|/də ˈæpl/|Перед голосним звуком the → /ði/.
+How do we say "the dog"?|/ðə dɒɡ/|/ði dɒɡ/|/də dɒɡ/|Перед приголосним звуком the → /ðə/.`)}
+};
+var FIXRAW=pq(`Which sentence is correct?|I wash the window.|I wash window.|I am wash the window.|Потрібні the і дія без to be.
+Which sentence is correct?|I clean the kitchen.|I cleans the kitchen.|I am clean the kitchen.|З I дієслово без -s і без to be.
+Which sentence is correct?|I see the sky.|I see a sky.|I see sky.|Небо одне → the sky.
+Which sentence is correct?|The dog is in the garden.|Dog is in garden.|The dog in the garden.|Потрібні the, is і in the.
+Which sentence is correct?|It is a house.|It is house.|It a house.|Потрібні is і a.
+Which question is correct?|Do you find the dog?|Are you find the dog?|Does you find the dog?|Do you + find.
+Which sentence is correct?|He doesn't clean the room.|He don't clean the room.|He doesn't cleans the room.|He + doesn't + clean.
+Which sentence is correct?|I see a tree. The tree is in the garden.|I see a tree. A tree is in the garden.|I see tree. The tree is in the garden.|Спочатку a, потім the.
+Which sentence is correct?|Anna is in the garden.|The Anna is in the garden.|Anna in the garden.|З іменами the не ставимо.
+Which sentence is correct?|In July I am in the garden.|In the July I am in the garden.|In July I am in garden.|Місяці без the.
+Which sentence is correct?|I see the moon in the sky.|I see the moon in sky.|I see moon in the sky.|the moon, the sky.
+Which question is correct?|Is the dog in the garden?|Is dog in the garden?|Does the dog in the garden?|З to be: Is the dog...?
+Which sentence is correct?|They are in the street.|They is in the street.|They in the street.|They → are.
+Which sentence is correct?|I drink tea in the garden.|I drink a tea in the garden.|I am drink tea in the garden.|Tea без артикля; дія без to be.
+Which sentence is correct?|I open the door, but I close the window.|I open the door, but I am close the window.|I opens the door, but I close the window.|З I дієслово без -s і без to be.
+Which sentence is correct?|She doesn't wash the window.|She not wash the window.|She doesn't washes the window.|She + doesn't + wash.
+Which sentence is correct?|The apple is in the kitchen.|A apple is in the kitchen.|The apple is in kitchen.|the apple; in the kitchen.
+Which sentence is correct?|It is an orange.|It is a orange.|It is orange.|Orange → an.
+Which sentence is correct?|I like dogs.|I like a dogs.|I am like dogs.|Множина, загально → без артикля.
+Which sentence is correct?|He likes tea.|He like tea.|He is like tea.|He + likes.
+Which question is correct?|Does she like gardens?|Do she like gardens?|Does she likes gardens?|Does + she + like.
+Which sentence is correct?|We are in the garden.|We is in the garden.|We in the garden.|We → are.`);
+G.fix={label:'fix the mistake',items:FIXRAW};
+
+/* ============ DATA: speaking ============ */
+var SPEAK=[
+ {t:"Check-in chat",s:"Warm up with your tutor. Use the words from the last lesson.",say:["Say hello and how you feel.","Say what you see: the sun, the moon, a table, a window.","Say what you open and close."],ph:["Hello! How are you?","I am tired.","I see the sun.","I open the window."],g:"review",tutor:["Are you in the kitchen?","Do you see the moon?","Do you close the door?"]},
+ {t:"My house",s:"Tell me about a house and the places in it.",say:["Say: It is a house.","Say where you are: in the kitchen, in the room, in the garden.","Say what you see there."],ph:["It is a house.","I am in the kitchen.","I see a table.","The bed is in the room."],g:"a → the + in the",tutor:["Is the bed in the room?","Do you see a tree?","Are you in the garden?"]},
+ {t:"The garden",s:"Talk about a garden.",say:["Say what you see in the garden.","Say what you do in the garden (walk, drink tea, read).","Say how you feel in the garden."],ph:["I see a tree.","The tree is in the garden.","I walk in the garden.","I drink tea in the garden."],g:"in the garden",tutor:["Do you like gardens?","Do you drink tea in the garden?","Do you read a book in the garden?"]},
+ {t:"The street and the shop",s:"Describe a street.",say:["Say: It is a street.","Say what is in the street: a shop, a tree, a house.","Say: The shop is in the street."],ph:["It is a street.","I see a shop.","The shop is in the street.","I walk in the street."],g:"a → the",tutor:["Is the shop in the street?","Do you walk in the street?","Do you see a house?"]},
+ {t:"The sky, the sun, the moon",s:"Talk about the sky.",say:["Say what you see in the sky.","Say what you like: the sun or the moon.","Say when you see the sun."],ph:["I see the sun in the sky.","I see the moon.","I like the sky.","In summer I see the sun."],g:"the (only one)",tutor:["Do you like the sun?","Do you see the moon in the sky?","Do you see the sun in winter?"]},
+ {t:"Clean and wash",s:"Say what you clean and what you wash.",say:["Say what you clean.","Say what you wash.","Say what you don't clean or wash."],ph:["I clean the kitchen.","I wash the window.","I don't clean the room.","I don't wash the dog."],g:"clean / wash + the",tutor:["Do you clean the kitchen?","Do you wash the window?","Does he clean the room?"]},
+ {t:"Find it!",s:"Look around your room. Say what you find.",say:["Say what you find: a book, a table, a dog.","Say where it is.","Ask your tutor: Do you find...?"],ph:["I find a book.","I find the dog in the garden.","The book is in the room.","Do you find the window?"],g:"find + the + in the",tutor:["Do you find the dog?","Is the book in the room?","Do you find a table?"]},
+ {t:"A or the? mini-stories",s:"Tell mini-stories: first a, then the.",say:["Say: It is a... Then: The ... is in the...","Tell three mini-stories."],ph:["It is a house. The house is in the street.","I see a tree. The tree is in the garden.","It is a shop. The shop is in the street."],g:"a → the",tutor:["What do you see?","Where is the tree?","Is the house in the street?"]},
+ {t:"General or specific?",s:"Practice the difference between dogs and the dog.",say:["Say what you like in general: I like dogs.","Say about one thing: I like the dog in the garden.","Do it with tea, trees and gardens."],ph:["I like dogs.","I like the dog in the garden.","I like trees.","I like the tree in the garden."],g:"general / specific",tutor:["Do you like gardens?","Do you like the garden near the house?","Do you drink tea?"]},
+ {t:"He and she",s:"Talk about another person.",say:["Say two things he or she doesn't clean or wash.","Say two things he or she likes.","Ask your tutor: Does he...?"],ph:["He doesn't clean the room.","She doesn't wash the window.","He likes tea.","Does she like gardens?"],g:"he / she + doesn't",tutor:["Does he like trees?","Does she find the dog?","Does he clean the kitchen?"]},
+ {t:"Yes / No game",s:"Quick questions. Short answers.",say:["Answer eight questions quickly.","Use: Yes, I do. / No, I don't. / Yes, it is. / No, she doesn't."],ph:["Yes, I do.","No, I don't.","Yes, it is.","No, he doesn't."],g:"short answers",tutor:["Do you see the sky?","Is the dog in the garden?","Does she like tea?","Do you wash the window?","Is it a house?"]},
+ {t:"My day (mini-story)",s:"Tell a short story about your day.",say:["Say how you feel.","Say where you are and what you see.","Say what you clean, eat, drink, read or watch."],ph:["I am tired.","I am in the garden.","I see a tree. The tree is in the garden.","I drink tea."],g:"mixed",tutor:["Are you hungry?","Do you clean the kitchen?","Do you read a book?"]}
+];
+
+/* ============ nav ============ */
+var TABS=[['plan','📋','Plan'],['check','✅','Check'],['the','🔎','The'],['words','🏠','Words'],['build','🧩','Build'],['type','⌨️','Type it'],['gram','🧠','Grammar'],['speak','🎤','Speak'],['test','🏁','Test']];
+var tab='plan';
+var START={plan:function(){ renderPlan(); },check:function(){ startCheck(); },the:function(){ startThe(); },words:function(){ startWords(); },build:function(){ startBuild(); },type:function(){ startType(); },gram:function(){ startGram(); },speak:function(){ startSpeak(); },test:function(){ startTest(); }};
+function drawTabs(){ $('#tabs').innerHTML=TABS.map(function(t){ return '<button class="tab" role="tab" data-t="'+t[0]+'" aria-selected="'+(tab===t[0])+'"><span class="ic">'+t[1]+'</span>'+t[2]+'</button>'; }).join(''); }
+function setTab(t){ tab=t; stopTimer(); clearTmo(); try{ if(canSpeak) window.speechSynthesis.cancel(); }catch(e){} drawTabs(); START[t](); window.scrollTo(0,0); }
+$('#tabs').addEventListener('click',function(e){ var b=e.target.closest('.tab'); if(b) setTab(b.getAttribute('data-t')); });
+
+/* ============ PLAN ============ */
+function renderPlan(){
+  var steps=[[8,'Check: what we learned last time','check','12 questions: kitchen, room, table, door, window, sun, moon, open, close, see, the'],[7,'The: more rules','the','9 short steps with a mini-question after each'],[7,'10 new words','words','house, garden, tree, sky, street, shop, bed, clean, wash, find'],[10,'Build sentences','build','Start with Last lesson, then New words, then The rules'],[8,'Grammar practice','gram','a / an / the, more rules, how to say «the», new words in sentences'],[8,'Type the translation','type','Ukrainian → English without word hints'],[7,'Speak','speak','My house, The garden, A or the?'],[5,'Final test','test','16 questions, results by topic']];
+  var m=mastered(), pct=Math.round(m/S.length*100);
+  $('#view').innerHTML='<div class="card"><h2>One hour: check + 10 new words + more rules for «the»</h2><p class="hint">Last lesson: kitchen, room, table, door, window, sun, moon, open, close, see. New words: house, garden, tree, sky, street, shop, bed, clean, wash, find. They work with everything the student already knows.</p><div style="height:10px"></div>'+
+   '<div class="kpi"><div><span class="big">'+S.length+'</span><small>sentences to translate</small></div><div><span class="big">'+m+'</span><small>mastered (2+ correct)</small></div><div><span class="big">'+total+'</span><small>correct answers today</small></div></div><div class="bar" aria-hidden="true"><i style="width:'+pct+'%"></i></div>'+
+   '<div class="rule"><b>New rules for «the»:</b> unique things (the sky), which one? (the dog in the garden), general or specific (I like dogs / I like the dog), no «the» with names and months.</div>'+
+   '<div class="plan">'+steps.map(function(s,i){ return '<div class="ps"><div class="m">'+s[0]+'<small>min</small></div><div class="t"><b>'+(i+1)+'. '+s[1]+'</b><br><span class="hint">'+s[3]+'</span></div><button class="btn sun" data-go="'+s[2]+'">Go</button></div>'; }).join('')+'</div>'+
+   '<p class="hint">60 minutes in total. Reset progress is at the bottom.</p><div class="row" style="margin-top:12px"><button class="btn" id="rst">Reset my progress</button></div></div>';
+  bindAttr('data-go',function(v){ setTab(v); });
+  var arm=false; $('#rst').onclick=function(){ if(!arm){ arm=true; this.textContent='Click again to confirm'; } else { P={}; saveP(); upM(); renderPlan(); } };
+}
+
+/* ============ WORDS ============ */
+var wMode='cards', wCat='New', wDeck=[], wTotal=0, wKnown=0, wShow=false, wg={};
+var WCATS=['New','Last lesson','Fruits','Vegetables','Feelings','Seasons','Months','Verbs','Things','All'];
+function wList(){ return WORDS.filter(function(w){ return wCat==='All'||w.c===wCat; }); }
+function wHead(){ return chips([['cards','Flashcards'],['hear','Listen and choose'],['ipa','Read the IPA']],wMode,'data-wm')+chips(WCATS.map(function(c){return [c,c];}),wCat,'data-wc'); }
+function wBind(){ bindAttr('data-wm',function(v){ wMode=v; startWords(); }); bindAttr('data-wc',function(v){ wCat=v; startWords(); }); }
+function startWords(){ if(wMode==='cards'){ var l=wList(); wDeck=shuffle(l); wTotal=l.length; wKnown=0; wShow=false; renderCards(); } else startWG(); }
+function renderCards(){
+  var pct=wTotal?Math.round(wKnown/wTotal*100):0, h='<div class="card"><h2>Words</h2><div style="height:8px"></div>'+wHead()+'<div class="bar" aria-hidden="true"><i style="width:'+pct+'%"></i></div>';
+  if(!wDeck.length){ $('#view').innerHTML=h+'<h2>All done!</h2><p>You know all '+wTotal+' words in this group.</p><div class="row"><button class="btn main" id="wr">Shuffle again</button></div></div>'; wBind(); $('#wr').onclick=startWords; return; }
+  var w=wDeck[0];
+  h+='<div class="wcard"><div class="wem" aria-hidden="true">'+w.e+'</div><div class="wen">'+w.en+'</div><p class="wipa ipa">'+w.ipa+'</p>'+(canSpeak?'<button class="btn sun" id="wl">🔊 Listen</button> ':'')+'<button class="btn" id="ws">'+(wShow?'Hide translation':'Show translation')+'</button><div class="wrev">'+(wShow?'<p class="wuk">'+w.uk+'</p>':'')+'</div>'+
+   '<div class="row" style="justify-content:center"><button class="btn" id="wa">Again later</button><button class="btn main" id="wk">I know it</button></div><p class="hint" style="margin-top:10px">'+wKnown+' of '+wTotal+' known. Say the word before you check.</p></div></div>';
+  $('#view').innerHTML=h; wBind();
+  if(canSpeak) $('#wl').onclick=function(){ say(w.en); };
+  $('#ws').onclick=function(){ wShow=!wShow; renderCards(); };
+  $('#wa').onclick=function(){ wDeck.push(wDeck.shift()); wShow=false; renderCards(); };
+  $('#wk').onclick=function(){ wDeck.shift(); wKnown++; wShow=false; renderCards(); };
+}
+function startWG(){ wg={pool:wList(),round:0,total:8,score:0,target:null,opts:[],picked:-1}; nextWG(true); }
+function nextWG(first){
+  var pool=wg.pool, t=pool[rnd(0,pool.length-1)]; if(wg.target&&pool.length>3) while(t.en===wg.target.en) t=pool[rnd(0,pool.length-1)];
+  wg.target=t; wg.opts=shuffle([t].concat(shuffle(pool.filter(function(x){return x.en!==t.en;})).slice(0,2))); wg.picked=-1; renderWG(); if(wMode==='hear') tmo.push(setTimeout(function(){ say(t.en); },first?250:100));
+}
+function renderWG(){
+  var h='<div class="card"><h2>Words</h2><div style="height:8px"></div>'+wHead();
+  if(wg.round>=wg.total){ $('#view').innerHTML=h+'<h2>'+wg.score+' out of '+wg.total+'</h2><p>'+(wg.score>=7?'Excellent!':'Good work. Play once more.')+'</p><div class="row"><button class="btn main" id="pa">Play again</button></div></div>'; wBind(); $('#pa').onclick=startWG; return; }
+  var t=wg.target, an=wg.picked>-1;
+  h+='<p class="hint">Question '+(wg.round+1)+' of '+wg.total+'</p>';
+  h+=wMode==='hear'?'<p class="q">Listen and choose the word.</p>'+(canSpeak?'<button class="btn sun" id="wh" style="margin-bottom:12px">🔊 Listen again</button>':'<p class="q">'+t.en+'</p>'):'<p class="q">Which word is this?</p><div class="big-ipa ipa">'+t.ipa+'</div>';
+  h+='<div class="opts">'+wg.opts.map(function(o,k){ var cls='opt',mk=''; if(an){ if(o.en===t.en){ cls+=' good'; mk='✓ '; } else if(k===wg.picked){ cls+=' bad'; mk='✗ '; } } return '<button class="'+cls+'" data-k="'+k+'"'+(an?' disabled':'')+'>'+mk+o.e+' '+o.en+'</button>'; }).join('')+'</div>';
+  if(an){ var ok=wg.opts[wg.picked].en===t.en; h+='<div class="fb'+(ok?'':' no')+'"><b>'+(ok?'Correct!':'Not quite.')+'</b><span class="ipa">'+t.en+' '+t.ipa+'</span> — '+t.uk+'</div><div class="row" style="margin-top:12px"><button class="btn main" id="wn">'+(wg.round===wg.total-1?'See result':'Next')+'</button></div>'; }
+  $('#view').innerHTML=h+'</div>'; wBind();
+  if(canSpeak&&$('#wh')) $('#wh').onclick=function(){ say(t.en); };
+  var os=document.querySelectorAll('.opt'); for(var i=0;i<os.length;i++) os[i].onclick=function(){ if(wg.picked>-1) return; wg.picked=parseInt(this.getAttribute('data-k'),10); if(wg.opts[wg.picked].en===t.en){ wg.score++; addScore(); } say(t.en); renderWG(); var n=$('#wn'); if(n) n.focus(); };
+  if($('#wn')) $('#wn').onclick=function(){ wg.round++; if(wg.round>=wg.total) renderWG(); else nextWG(false); };
+}
+
+/* ============ BUILD ============ */
+var bTag='all', bd={};
+function startBuild(){ bd={list:chooseSet(bTag,10),i:0,bank:[],tray:[],state:'',tries:0,score:0,done:false}; loadBuild(); }
+function loadBuild(){
+  var s=bd.list[bd.i], toks=s.en.split(' ').map(function(t,k){ return {id:k,t:t}; }), sh=shuffle(toks), g=0;
+  while(sh.map(function(x){return x.t;}).join(' ')===s.en&&g++<20) sh=shuffle(toks);
+  bd.bank=sh; bd.tray=[]; bd.state=''; bd.tries=0; renderBuild();
+}
+function renderBuild(){
+  var head='<div class="card"><h2>Build the sentence</h2><p class="hint">Translate from Ukrainian by tapping the English words in the right order.</p><div style="height:10px"></div>'+chips(TAGS,bTag,'data-tg');
+  if(bd.done){ $('#view').innerHTML=head+'<h2>'+bd.score+' of '+bd.list.length+' on the first try</h2><p>Now read each sentence aloud once more.</p><div class="row"><button class="btn main" id="ba">Play again</button></div></div>'; bindAttr('data-tg',function(v){ bTag=v; startBuild(); }); $('#ba').onclick=startBuild; return; }
+  var s=bd.list[bd.i];
+  var h=head+'<div class="row between"><p class="hint">Sentence '+(bd.i+1)+' of '+bd.list.length+'</p><p class="hint">First-try: '+bd.score+'</p></div><p class="uk">'+s.uk+'</p><div class="tray '+bd.state+'" aria-label="Your sentence">'+(bd.tray.length?bd.tray.map(function(x){ return '<button class="tok" data-f="t" data-id="'+x.id+'">'+x.t+'</button>'; }).join(''):'<span class="hint">Tap the words below.</span>')+'</div><div class="bank" aria-label="Word bank">'+bd.bank.map(function(x){ return '<button class="tok" data-f="b" data-id="'+x.id+'">'+x.t+'</button>'; }).join('')+'</div>';
+  if(bd.state==='ok') h+='<div class="fb"><b>Correct!</b>Read it aloud.</div><div class="row" style="margin-top:12px">'+(canSpeak?'<button class="btn sun" id="bl">🔊 Listen</button>':'')+'<button class="btn main" id="bn">'+(bd.i===bd.list.length-1?'See result':'Next sentence')+'</button></div>';
+  else { if(bd.state==='no') h+='<div class="fb no"><b>Almost.</b>Check the word order and try again.'+(bd.tries>=2?' Stuck? Use "Show answer".':'')+'</div>'; h+='<div class="row" style="margin-top:12px"><button class="btn main" id="bc"'+(bd.bank.length?' disabled':'')+'>Check</button><button class="btn" id="bx">Clear</button>'+(bd.tries>=2?'<button class="btn sun" id="bs">Show answer</button>':'')+'</div>'; }
+  $('#view').innerHTML=h+'</div>';
+  bindAttr('data-tg',function(v){ bTag=v; startBuild(); });
+  var ts=document.querySelectorAll('.tok'); for(var i=0;i<ts.length;i++) ts[i].onclick=function(){ if(bd.state==='ok') return; var id=parseInt(this.getAttribute('data-id'),10), fb=this.getAttribute('data-f')==='b', src=fb?bd.bank:bd.tray, dst=fb?bd.tray:bd.bank, k=src.findIndex(function(x){return x.id===id;}); dst.push(src.splice(k,1)[0]); bd.state=''; renderBuild(); };
+  if($('#bc')) $('#bc').onclick=function(){ var a=bd.tray.map(function(x){return x.t;}).join(' '); if(a===s.en){ bd.state='ok'; addScore(); if(bd.tries===0){ bd.score++; credit(s,true); } } else { bd.state='no'; bd.tries++; } renderBuild(); };
+  if($('#bx')) $('#bx').onclick=function(){ bd.bank=bd.bank.concat(bd.tray); bd.tray=[]; bd.state=''; renderBuild(); };
+  if($('#bs')) $('#bs').onclick=function(){ bd.tray=s.en.split(' ').map(function(t,k){ return {id:k,t:t}; }); bd.bank=[]; bd.state='ok'; renderBuild(); };
+  if($('#bn')) $('#bn').onclick=function(){ if(bd.i===bd.list.length-1){ bd.done=true; renderBuild(); } else { bd.i++; loadBuild(); } };
+  if($('#bl')) $('#bl').onclick=function(){ say(s.en); };
+}
+
+/* ============ TYPE IT ============ */
+var CONTR=[["i'm","i am"],["you're","you are"],["he's","he is"],["she's","she is"],["it's","it is"],["we're","we are"],["they're","they are"],["isn't","is not"],["aren't","are not"],["don't","do not"],["doesn't","does not"]];
+function normA(s){
+  s=s.replace(/[’‘`]/g,"'").toLowerCase().replace(/[.!?,]/g,' ').replace(/\s+/g,' ').trim();
+  CONTR.forEach(function(c){ s=s.split(c[0]).join(c[1]); });
+  return s.replace(/\s+/g,' ').trim();
+}
+var tTag='all', ty={};
+function startType(){ ty={list:chooseSet(tTag,10),i:0,state:'',tries:0,score:0,done:false,hint:false}; renderType(); }
+function renderType(){
+  var head='<div class="card"><h2>Type the translation</h2><p class="hint">No word hints. Type the English sentence. Short forms like I\'m or don\'t are fine.</p><div style="height:10px"></div>'+chips(TAGS,tTag,'data-tg');
+  if(ty.done){ $('#view').innerHTML=head+'<h2>'+ty.score+' of '+ty.list.length+' on the first try</h2><p>'+(ty.score>=8?'Excellent!':'Good work. The sentences you missed will come first next time.')+'</p><div class="row"><button class="btn main" id="ta">Play again</button></div></div>'; bindAttr('data-tg',function(v){ tTag=v; startType(); }); $('#ta').onclick=startType; return; }
+  var s=ty.list[ty.i], words=s.en.split(' '), hint=ty.hint?'Starts with: <b>'+words.slice(0,2).join(' ')+'...</b>':'';
+  var h=head+'<div class="row between"><p class="hint">Sentence '+(ty.i+1)+' of '+ty.list.length+'</p><p class="hint">First-try: '+ty.score+'</p></div><p class="uk">'+s.uk+'</p>'+
+   '<input class="inp '+(ty.state==='ok'?'ok':ty.state==='no'?'no':'')+'" id="in" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="English translation" placeholder="Type in English"'+(ty.state==='ok'||ty.state==='reveal'?' disabled':'')+'>'+(hint?'<p class="hint">'+hint+'</p>':'');
+  if(ty.state==='ok') h+='<div class="fb"><b>Correct!</b>'+s.en+'</div>';
+  if(ty.state==='no') h+='<div class="fb no"><b>Not quite.</b>Check articles, to be and do / does. Try once more.</div>';
+  if(ty.state==='reveal') h+='<div class="fb no"><b>The answer:</b>'+s.en+'</div>';
+  h+='<div class="row" style="margin-top:12px">'+((ty.state==='ok'||ty.state==='reveal')?(canSpeak?'<button class="btn sun" id="tl">🔊 Listen</button>':'')+'<button class="btn main" id="tn">'+(ty.i===ty.list.length-1?'See result':'Next sentence')+'</button>':'<button class="btn main" id="tc">Check</button><button class="btn" id="th">💡 Hint</button><button class="btn" id="tr">Show answer</button>')+'</div></div>';
+  $('#view').innerHTML=h; bindAttr('data-tg',function(v){ tTag=v; startType(); });
+  var inp=$('#in'); if(inp&&!inp.disabled) inp.focus();
+  function check(){
+    if(normA(inp.value)===normA(s.en)){ ty.state='ok'; addScore(); if(ty.tries===0){ ty.score++; credit(s,true); } if(canSpeak) say(s.en); }
+    else { ty.state='no'; ty.tries++; }
+    var v=inp.value; renderType(); var i2=$('#in'); if(i2&&!i2.disabled){ i2.value=v; i2.focus(); } var n=$('#tn'); if(n) n.focus();
+  }
+  if($('#tc')){ $('#tc').onclick=check; inp.onkeydown=function(e){ if(e.key==='Enter') check(); }; }
+  if($('#th')) $('#th').onclick=function(){ ty.hint=true; var v=inp.value; renderType(); var i3=$('#in'); if(i3){ i3.value=v; i3.focus(); } };
+  if($('#tr')) $('#tr').onclick=function(){ ty.state='reveal'; ty.tries=9; renderType(); };
+  if($('#tl')) $('#tl').onclick=function(){ say(s.en); };
+  if($('#tn')) $('#tn').onclick=function(){ ty.i++; ty.state=''; ty.tries=0; ty.hint=false; if(ty.i>=ty.list.length) ty.done=true; renderType(); };
+}
+
+/* ============ QUIZ ENGINE (Grammar, Fix it, Test) ============ */
+var qz={};
+function prep(item,topic){ var idx=shuffle([0,1,2]); return {t:topic,q:item[0],o:idx.map(function(k){return item[1][k];}),a:idx.indexOf(0),right:item[1][0],w:item[2]}; }
+function runQuiz(list,key){ qz={list:list,i:0,score:0,picked:-1,miss:[],streak:0,best:0,by:{},key:key}; }
+function quizBody(){
+  if(qz.i>=qz.list.length){
+    var n=qz.list.length, pct=Math.round(qz.score/n*100);
+    var h='<h2>'+qz.score+' out of '+n+'</h2><p>'+(pct>=90?'Excellent!':pct>=70?'Good job! Check the rules below.':'Keep practicing. Read the rules and try again.')+' Best streak: '+qz.best+'.</p>';
+    var ks=Object.keys(qz.by); if(ks.length>1) h+='<h3>By topic</h3><div class="res">'+ks.map(function(k){ return '<div><span>'+(G[k]?G[k].label:(k==='fix'?'Fix the mistake':k))+'</span><b>'+qz.by[k][0]+' / '+qz.by[k][1]+'</b></div>'; }).join('')+'</div>';
+    if(qz.miss.length) h+='<h3>Review these rules</h3>'+qz.miss.map(function(m){ return '<div class="miss"><p><b>'+(m.q.indexOf('___')>-1?m.q.replace('___',m.right):m.q+' → '+m.right)+'</b></p><p class="hint">'+m.w+'</p></div>'; }).join('');
+    return h+'<div class="row" style="margin-top:12px"><button class="btn main" id="qa">Play again</button></div>';
+  }
+  var it=qz.list[qz.i], an=qz.picked>-1;
+  var q=it.q.indexOf('___')>-1?it.q.replace('___','<span class="blank'+(an?' f':'')+'">'+(an?it.right:'&nbsp;')+'</span>'):it.q;
+  var h2='<div class="row between"><p class="hint">Question '+(qz.i+1)+' of '+qz.list.length+'</p><p class="hint">Correct: '+qz.score+' | Streak: '+qz.streak+'</p></div><div class="q">'+q+'</div><div class="opts">'+it.o.map(function(o,k){ var cls='opt',mk=''; if(an){ if(k===it.a){ cls+=' good'; mk='✓ '; } else if(k===qz.picked){ cls+=' bad'; mk='✗ '; } } return '<button class="'+cls+'" data-k="'+k+'"'+(an?' disabled':'')+'>'+mk+o+'</button>'; }).join('')+'</div>';
+  if(an){ var ok=qz.picked===it.a; h2+='<div class="fb'+(ok?'':' no')+'"><b>'+(ok?'Correct!':'Not quite. The answer is "'+it.right+'".')+'</b>'+it.w+'</div><div class="row" style="margin-top:12px"><button class="btn main" id="qn">'+(qz.i===qz.list.length-1?'See result':'Next question')+'</button></div>'; }
+  return h2;
+}
+function bindQuiz(replay,rerender){
+  var os=document.querySelectorAll('.opt'); for(var i=0;i<os.length;i++) os[i].onclick=function(){
+    if(qz.picked>-1) return; var it=qz.list[qz.i]; qz.picked=parseInt(this.getAttribute('data-k'),10);
+    qz.by[it.t]=qz.by[it.t]||[0,0]; qz.by[it.t][1]++;
+    if(qz.picked===it.a){ qz.score++; qz.streak++; if(qz.streak>qz.best) qz.best=qz.streak; qz.by[it.t][0]++; addScore(); } else { qz.streak=0; qz.miss.push(it); }
+    rerender(); var n=$('#qn'); if(n) n.focus();
+  };
+  if($('#qn')) $('#qn').onclick=function(){ qz.i++; qz.picked=-1; rerender(); };
+  if($('#qa')) $('#qa').onclick=replay;
+}
+
+/* grammar */
+var gTopic='the';
+function startGram(){ runQuiz(shuffle(G[gTopic].items).slice(0,8).map(function(it){ return prep(it,gTopic); }),'gram'); renderGram(); }
+function renderGram(){
+  var h='<div class="card"><h2>Grammar</h2><div style="height:8px"></div>'+chips(Object.keys(G).map(function(k){ return [k,G[k].label]; }),gTopic,'data-g')+quizBody()+'</div>';
+  $('#view').innerHTML=h; bindAttr('data-g',function(v){ gTopic=v; startGram(); }); bindQuiz(startGram,renderGram);
+}
+/* fix it */
+function startFix(){ runQuiz(shuffle(FIXRAW).slice(0,10).map(function(it){ return prep(it,'fix'); }),'fix'); renderFix(); }
+function renderFix(){ $('#view').innerHTML='<div class="card"><h2>Fix the mistake</h2><p class="hint">Choose the correct sentence. Look for missing to be, wrong a / an, wrong do / does.</p><div style="height:10px"></div>'+quizBody()+'</div>'; bindQuiz(startFix,renderFix); }
+/* test */
+function startTest(){
+  var list=[]; [['prev',4],['the',3],['rules',2],['newv',3],['pron',1],['fix',3]].forEach(function(p){ list=list.concat(shuffle(G[p[0]].items).slice(0,p[1]).map(function(it){ return prep(it,p[0]); })); });
+  runQuiz(shuffle(list),'test'); renderTest();
+}
+function renderTest(){ $('#view').innerHTML='<div class="card"><h2>Final test</h2><p class="hint">16 questions: last lesson, the rules, new words and mistakes.</p><div style="height:10px"></div>'+quizBody()+'</div>'; bindQuiz(startTest,renderTest); }
+
+/* ============ CHECK (last lesson) ============ */
+function startCheck(){ runQuiz(shuffle(G.prev.items).slice(0,12).map(function(it){ return prep(it,'prev'); }),'check'); renderCheck(); }
+function renderCheck(){
+  var fin=qz.i>=qz.list.length;
+  var note=fin?'<div class="rule">'+(qz.score>=10?'Great! The last lesson is well learned. Move on to «The».':qz.score>=7?'Good. Open Words → «Last lesson» for a quick repeat, then continue.':'Let\'s repeat the last lesson first: Words → «Last lesson», then Build → «Last lesson».')+'</div>':'';
+  $('#view').innerHTML='<div class="card"><h2>Check: last lesson</h2><p class="hint">12 questions about kitchen, room, table, door, window, sun, moon, open, close, see and the.</p><div style="height:10px"></div>'+quizBody()+note+'</div>';
+  bindQuiz(startCheck,renderCheck);
+}
+
+/* ============ THE (explainer) ============ */
+function mk(q,c,w1,w2,why){ return [q,[c,w1,w2],why]; }
+var TH=[
+ {t:'1. Quick recap',b:'<p>Згадаємо: <b>a / an</b> — «якийсь», <b>the</b> — «той самий, відомий». Перший раз: <b>a</b>, другий раз: <b>the</b>.</p>',ex:[['I see a dog. The dog is happy.','Спочатку a, потім the.'],['I see the sun.','Сонце одне.']],ck:mk('It is a table. ___ table is in the kitchen.','The','A','no article','Другий раз про той самий стіл → the.')},
+ {t:'2. Only one: the sky, the sun, the moon',b:'<p>Якщо річ <b>одна для всіх</b>, ставимо <b>the</b>: <b>the sky</b>, <b>the sun</b>, <b>the moon</b>.</p>',ex:[['I see the sky.','Я бачу небо.'],['I see the moon in the sky.','Я бачу місяць у небі.'],['I like the sun.','Я люблю сонце.']],ck:mk('I see ___ sky.','the','a','no article','Небо одне → the sky.')},
+ {t:'3. Places we both know',b:'<p>Місця, які знають і мовець, і слухач: <b>the kitchen, the garden, the street, the shop</b>. Ми говоримо про «наш» сад чи «нашу» вулицю.</p>',ex:[['I am in the garden.','Я в саду.'],['The shop is in the street.','Магазин на вулиці.'],['We are in the kitchen.','Ми в кухні.']],ck:mk('Which sentence is correct?','I am in the garden.','I am in garden.','I am the in garden.','Потрібен the перед garden.')},
+ {t:'4. Which one? Add details',b:'<p>Коли ми уточнюємо, <b>який саме</b> предмет (де він, який він), ставимо <b>the</b>: <b>the dog in the garden</b>, <b>the tree in the garden</b>.</p>',ex:[['I see the dog in the garden.','Я бачу того собаку в саду.'],['I find the dog in the garden.','Я знаходжу собаку в саду.'],['I like the dog in the garden.','Люблю ту собаку в саду.']],ck:mk('Which sentence is correct?','I find the dog in the garden.','I find dog in garden.','I am find the dog in the garden.','Уточнюємо, який саме собака → the dog; in the garden.')},
+ {t:'5. General or specific?',b:'<p><b>Загалом</b> про щось: без the: <b>I like dogs. I drink tea.</b></p><p><b>Про конкретну</b> річ: з the: <b>I like the dog in the garden. The tea is in the kitchen.</b></p>',ex:[['I like dogs.','Люблю собак (взагалі).'],['I like the dog in the garden.','Люблю ту собаку в саду.'],['I drink tea.','П\'ю чай (взагалі).'],['The tea is in the kitchen.','Той чай у кухні.']],ck:mk('Which sentence means «Я люблю собак взагалі»?','I like dogs.','I like the dog.','I am like dogs.','Взагалі (множина) → без the.')},
+ {t:'6. No «the» with names and months',b:'<p>З <b>іменами</b> та <b>місяцями</b> the не ставимо: <b>Anna</b>, <b>July</b>, <b>March</b>.</p>',ex:[['Anna is in the kitchen.','Анна в кухні.'],['In July I am in the garden.','У липні я в саду.'],['It is March.','Це березень.']],ck:mk('Which sentence is correct?','Anna is in the garden.','The Anna is in the garden.','Anna in the garden.','З іменами the не ставимо.')},
+ {t:'7. Mini-stories: a → the',b:'<p>Розкажіть міні-історію: спочатку <b>a</b>, потім <b>the</b>. Так говорять і пишуть носії.</p>',ex:[['It is a house. The house is in the street.','Це будинок. Будинок на вулиці.'],['I see a tree. The tree is in the garden.','Я бачу дерево. Дерево в саду.'],['It is a shop. The shop is in the street.','Це магазин. Магазин на вулиці.']],ck:mk('It is a shop. ___ shop is in the street.','The','A','no article','Другий раз про той самий магазин → the.')},
+ {t:'8. How to say «the»',b:'<p>Перед <b>приголосним</b> звуком — <b>/ðə/</b>: the house, the sky, the garden.</p><p>Перед <b>голосним</b> звуком — <b>/ði/</b>: the apple, the orange, the onion.</p>',ex:[['the house','/ðə haʊs/'],['the apple','/ði ˈæpl/'],['the sky','/ðə skaɪ/'],['the orange','/ði ˈɒrɪndʒ/']],ck:mk('How do we say "the onion"?','/ði ˈʌnjən/','/ðə ˈʌnjən/','/də ˈʌnjən/','Onion починається з голосного звука → /ði/.')},
+ {t:'9. Summary',b:'<table class="tt"><tr><th>Article</th><th>When</th><th>Example</th></tr><tr><td><b>a / an</b></td><td>перший раз, якийсь один</td><td>It is a house.</td></tr><tr><td><b>the</b></td><td>вдруге; єдиний; обоє знаємо; уточнили який</td><td>The house is in the street. The sky. The dog in the garden.</td></tr><tr><td><b>no article</b></td><td>загалом; імена; місяці</td><td>I like dogs. Anna. July.</td></tr></table>',ex:[],ck:null}
+];
+var th={i:0,ck:{},ans:{}};
+function startThe(){ th={i:0,ck:{},ans:{}}; renderThe(); }
+function renderThe(){
+  var st=TH[th.i];
+  if(st.ck&&!th.ck[th.i]) th.ck[th.i]=prep(st.ck,'the');
+  var ck=th.ck[th.i], an=th.ans[th.i]!==undefined;
+  var h='<div class="card"><div class="row between"><h2 style="margin:0">'+st.t+'</h2><span class="hint">Step '+(th.i+1)+' of '+TH.length+'</span></div><div class="bar" aria-hidden="true" style="margin-top:8px"><i style="width:'+Math.round((th.i+1)/TH.length*100)+'%"></i></div>'+st.b;
+  if(st.ex.length) h+='<div class="plan">'+st.ex.map(function(e,i){ return '<div class="ps"><div class="t"><b>'+e[0].replace(/\b(the|The)\b/g,'<mark>$1</mark>')+'</b><br><span class="hint">'+e[1]+'</span></div>'+(canSpeak?'<button class="btn" data-say="'+i+'" aria-label="Listen">🔊</button>':'')+'</div>'; }).join('')+'</div>';
+  if(ck){
+    h+='<h3>Check yourself</h3><div class="q">'+(ck.q.indexOf('___')>-1?ck.q.replace('___','<span class="blank'+(an?' f':'')+'">'+(an?ck.right:'&nbsp;')+'</span>'):ck.q)+'</div><div class="opts">'+ck.o.map(function(o,k){ var cls='opt',mk2=''; if(an){ if(k===ck.a){ cls+=' good'; mk2='✓ '; } else if(k===th.ans[th.i]){ cls+=' bad'; mk2='✗ '; } } return '<button class="'+cls+'" data-k="'+k+'"'+(an?' disabled':'')+'>'+mk2+o+'</button>'; }).join('')+'</div>';
+    if(an){ var ok=th.ans[th.i]===ck.a; h+='<div class="fb'+(ok?'':' no')+'"><b>'+(ok?'Correct!':'Not quite. The answer is "'+ck.right+'".')+'</b>'+ck.w+'</div>'; }
+  }
+  h+='<div class="row" style="margin-top:14px">'+(th.i>0?'<button class="btn" id="pv">← Back</button>':'')+(th.i<TH.length-1?'<button class="btn main" id="nx">Next step →</button>':'<button class="btn main" id="gp">Practice in Grammar →</button><button class="btn" id="rs">Start again</button>')+'</div></div>';
+  $('#view').innerHTML=h;
+  var ss=document.querySelectorAll('[data-say]'); for(var i=0;i<ss.length;i++) ss[i].onclick=function(){ say(st.ex[parseInt(this.getAttribute('data-say'),10)][0].replace(/\/.*$/,'')); };
+  var os=document.querySelectorAll('.opt'); for(var j=0;j<os.length;j++) os[j].onclick=function(){ if(th.ans[th.i]!==undefined) return; th.ans[th.i]=parseInt(this.getAttribute('data-k'),10); if(th.ans[th.i]===ck.a) addScore(); renderThe(); };
+  if($('#nx')) $('#nx').onclick=function(){ th.i++; renderThe(); window.scrollTo(0,0); };
+  if($('#pv')) $('#pv').onclick=function(){ th.i--; renderThe(); window.scrollTo(0,0); };
+  if($('#gp')) $('#gp').onclick=function(){ gTopic='the'; setTab('gram'); };
+  if($('#rs')) $('#rs').onclick=startThe;
+}
+
+/* ============ SPEAK ============ */
+var sp={list:[],i:0}, left=90;
+function startSpeak(){ sp={list:SPEAK.slice(),i:0}; renderSpeak(); }
+function renderSpeak(){
+  stopTimer(); left=90; var c=sp.list[sp.i];
+  $('#view').innerHTML='<div class="card"><div class="row between"><h2 style="margin:0">'+c.t+'</h2><p class="gram">'+c.g+'</p></div><p class="sit">'+c.s+'</p><h3>Your job</h3><ul class="say">'+c.say.map(function(x){ return '<li>'+x+'</li>'; }).join('')+'</ul><h3>Useful phrases</h3><div class="phr">'+c.ph.map(function(x){ return '<span>'+x+'</span>'; }).join('')+'</div>'+
+   '<div class="row" style="margin-top:14px"><div class="timer" id="tm" role="timer">'+fmt(left)+'</div><button class="btn sun" id="ts">Start 90 sec</button><button class="btn" id="pv">← Back</button><button class="btn main" id="nx">Next topic →</button></div><p class="hint" id="tmsg" style="margin-top:6px">Speak without stopping. Small mistakes are okay.</p>'+
+   '<div class="tutor"><b>Tutor asks next:</b><ul>'+c.tutor.map(function(x){ return '<li>'+x+'</li>'; }).join('')+'</ul></div><p class="hint" style="margin-top:10px">Topic '+(sp.i+1)+' of '+sp.list.length+'. Then swap roles.</p></div>';
+  $('#ts').onclick=function(){ stopTimer(); left=90; $('#tm').textContent=fmt(left); $('#tmsg').textContent='Go! Speak in English.'; timerId=setInterval(function(){ left--; $('#tm').textContent=fmt(left); if(left<=0){ stopTimer(); $('#tmsg').textContent='Time! Now answer your tutor\'s questions.'; addScore(); } },1000); };
+  $('#nx').onclick=function(){ sp.i=(sp.i+1)%sp.list.length; renderSpeak(); };
+  $('#pv').onclick=function(){ sp.i=(sp.i+sp.list.length-1)%sp.list.length; renderSpeak(); };
+}
+
+upM();
+setTab('plan');
+</script>
+</body>
+</html>
